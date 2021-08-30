@@ -1,0 +1,28 @@
+<config>
+    <file
+            source_path="/home/zlofey/testing/source"
+            destination_path="/home/zlofey/testing/dest"
+            file_name="soplya.jpg"
+    />
+    <file
+            source_path="/home/zlofey/testing/source"
+            destination_path="/home/zlofey/testing/dest"
+            file_name="sudo_only.txt"
+    />
+    <file
+            source_path="/home/zlofey/windows_data/downloads"
+            destination_path="/media/zlofey/1D5B-2F8E"
+            file_name="Vice.Academy.1989.1080p.BluRay.REMUX.AVC.DTS-HD.MA.2.0-FGT.mkv"
+    />
+    <file
+            source_path="/home/zlofey/Downloads"
+            destination_path="/media/zlofey/1D5B-2F8E"
+            file_name="The.Dude.In.Me.2019.1080p.NF.WEB-DL.mkv"
+    />
+    <file
+            source_path="/home/zlofey/Downloads"
+            destination_path="/home/zlofey/windows_data"
+            file_name="tmp-logo (1)"
+    />
+
+</config>

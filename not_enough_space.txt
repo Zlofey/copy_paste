@@ -1,0 +1,8 @@
+2021-08-30 04:11:04.256301
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+non-copied files list:
+/home/zlofey/windows_data/downloads/Vice.Academy.1989.1080p.BluRay.REMUX.AVC.DTS-HD.MA.2.0-FGT.mkv 25149365087 B
+/home/zlofey/Downloads/The.Dude.In.Me.2019.1080p.NF.WEB-DL.mkv 3800452224 B

@@ -1,0 +1,77 @@
+
+2021-08-30 03:36:00,621 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 03:36:00,843 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 03:36:21,091 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 03:36:21,313 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 03:59:58,256 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 03:59:58,474 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 04:03:56,568 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 04:03:56,785 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 04:06:14,266 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 04:06:14,496 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 04:08:03,676 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 04:08:03,920 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
+
+2021-08-30 04:11:04,030 WARNING sudo_only.txt read access check failed
+file_path: /home/zlofey/testing/source/sudo_only.txt
+Exception: [Errno 13] Permission denied: '/home/zlofey/testing/source/sudo_only.txt'
+
+2021-08-30 04:11:04,256 WARNING Not enough space on
+device: /dev/sdc
+mountpoint: /media/zlofey/1D5B-2F8E
+required_space: 28949817311 B
+free_dsk_space: 200970240 B
+some files are not copied, see /home/zlofey/PycharmProjects/copy_paste/not_enough_space.txt for details
