@@ -207,9 +207,9 @@ def file_check(file):
             os.makedirs(file["destination_path"], exist_ok=True)
             # destination_path write access check
             try:
-                with open(os.path.join(file["destination_path"], 'tempfile.txt'), 'w'):
-                    os.remove(os.path.join(file["destination_path"], 'tempfile.txt'))
-                    return True
+                open(os.path.join(file["destination_path"], 'tempfile.txt'), 'w').close()
+                os.remove(os.path.join(file["destination_path"], 'tempfile.txt'))
+                return True
             except Exception as e:
                 logging.warning(f'{file["file_name"]} write access check failed\ndestination_path: {file["destination_path"]}\nException:{e}')
         except Exception:
@@ -228,14 +228,8 @@ if __name__ == '__main__':
         copy(f)
 
 
-# TODO доделать шоб работало хоть как-то, добавить requariments.txt, проверить на windows и  вылить на гитхаб
-
-#TODO Сделать проверку на уже существующий в destination_path файл. если есть, то запрос на overwrite.
-
-#TODO можно добавить сравнение файлов по хеш суммам
+#TODO Сделать проверку на уже существующий в destination_path файл. если есть, то запрос на overwrite. можно добавить сравнение файлов по хеш суммам
 
 #TODO  можно с помощью https://github.com/magmax/python-inquirer вывести список файлов для копирования, если места недостаточно.
 
-#TODO можно создать лог-файл с файлами, которые не/отработали корректно
-
-#TODO сделать unit тесты
+#TODO  unit тесты
