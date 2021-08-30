@@ -224,10 +224,3 @@ if __name__ == '__main__':
     for f in files:
         copy(f)
 
-# TODO Сделать проверку на уже существующий в destination_path файл. если есть, то запрос на overwrite. можно добавить сравнение файлов по хеш суммам
-
-# TODO  можно с помощью https://github.com/magmax/python-inquirer вывести список файлов для копирования, если места недостаточно.
-
-# TODO  unit тесты
-
-# Добавить click
