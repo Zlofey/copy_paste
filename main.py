@@ -11,11 +11,7 @@ import xml.etree.ElementTree as ET
 import logging
 import psutil as psutil
 
-# Command Line Interface Creation Kit
-# import click
-# @click.command()
-# @click.option('--xml_path', prompt='path to config xml file')
-xml_path = 'config.xml'  # TODO replace with click
+xml_path = 'config.xml'
 
 LOG_FORMAT = "\n%(asctime)s %(levelname)s %(message)s"
 LOG_PATH = 'copy_paste.log'
@@ -33,7 +29,6 @@ def find_sdiskpart(path):
     p = [p for p in psutil.disk_partitions(all=True) if p.mountpoint == path.__str__()]
     l = len(p)
     if len(p) == 1:
-        #print(type(p[0]))
         return p[0]
     raise psutil.Error
 
@@ -80,7 +75,6 @@ def get_files(tree):
     else:
         print('files to copy not found in the config file')
         exit()
-    #print(files)
     return files
 
 
@@ -103,6 +97,7 @@ def disk_space_check(files):
     calculate required disk space.
     if disk is out of space, remove files that need to be copied to this disk from "files".
     """
+
     def _checking(files):
         files_to_check = []  # add "files" with disk usage information
         for file in files:
@@ -156,10 +151,10 @@ def disk_space_check(files):
         for device in devices:
             if not device["enough_space"]:
                 m = (f'Not enough space on'
-                      f'\ndevice: {device["dest_device"]}'
-                      f'\nmountpoint: {device["dest_mountpoint"]}'
-                      f'\nrequired_space: {device["required_space"]} B'
-                      f'\nfree_dsk_space: {device["free_disk_space"]} B'
+                     f'\ndevice: {device["dest_device"]}'
+                     f'\nmountpoint: {device["dest_mountpoint"]}'
+                     f'\nrequired_space: {device["required_space"]} B'
+                     f'\nfree_dsk_space: {device["free_disk_space"]} B'
                      f'\nsome files are not copied, see {os.path.abspath("not_enough_space.txt")} for details')
                 print(m)
                 logging.warning(m)
@@ -196,7 +191,8 @@ def file_check(file):
                 open(file["file_path"]).close()
                 return True
             except Exception as e:
-                logging.warning(f'{file["file_name"]} read access check failed\nfile_path: {file["file_path"]}\nException: {e}')
+                logging.warning(
+                    f'{file["file_name"]} read access check failed\nfile_path: {file["file_path"]}\nException: {e}')
         else:
             logging.warning(f'{file["file_name"]} no such file or directory\nfile_path: {file["file_path"]}')
         return False
@@ -211,7 +207,8 @@ def file_check(file):
                 os.remove(os.path.join(file["destination_path"], 'tempfile.txt'))
                 return True
             except Exception as e:
-                logging.warning(f'{file["file_name"]} write access check failed\ndestination_path: {file["destination_path"]}\nException:{e}')
+                logging.warning(
+                    f'{file["file_name"]} write access check failed\ndestination_path: {file["destination_path"]}\nException:{e}')
         except Exception:
             logging.warning(f'{file["file_name"]} failed to make path: \ndestination_path: {file["destination_path"]}')
         return False
@@ -227,9 +224,10 @@ if __name__ == '__main__':
     for f in files:
         copy(f)
 
+# TODO Сделать проверку на уже существующий в destination_path файл. если есть, то запрос на overwrite. можно добавить сравнение файлов по хеш суммам
 
-#TODO Сделать проверку на уже существующий в destination_path файл. если есть, то запрос на overwrite. можно добавить сравнение файлов по хеш суммам
+# TODO  можно с помощью https://github.com/magmax/python-inquirer вывести список файлов для копирования, если места недостаточно.
 
-#TODO  можно с помощью https://github.com/magmax/python-inquirer вывести список файлов для копирования, если места недостаточно.
+# TODO  unit тесты
 
-#TODO  unit тесты
+# Добавить click
