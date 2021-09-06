@@ -9,9 +9,11 @@ import shutil
 import xml
 import xml.etree.ElementTree as ET
 import logging
+
+import click
 import psutil as psutil
 
-xml_path = 'config.xml'
+
 
 LOG_FORMAT = "\n%(asctime)s %(levelname)s %(message)s"
 LOG_PATH = 'copy_paste.log'
@@ -216,7 +218,9 @@ def file_check(file):
     return _source_check(file) and _destination_check(file)
 
 
-if __name__ == '__main__':
+@click.command()
+@click.option('--xml_path', prompt='enter path to config file', default='config.xml in project dir')
+def main(xml_path):
     tree = get_tree(xml_path)
     files = get_files(tree)
     files = [f for f in files if file_check(f)]
@@ -224,3 +228,6 @@ if __name__ == '__main__':
     for f in files:
         copy(f)
 
+
+if __name__ == "__main__":
+    main()
