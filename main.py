@@ -12,7 +12,7 @@ import logging
 
 import click
 import psutil as psutil
-
+import filecmp
 
 
 LOG_FORMAT = "\n%(asctime)s %(levelname)s %(message)s"
@@ -84,6 +84,28 @@ def copy(file):
     """
     copy file
     """
+
+
+    # does file already exist in destination_path dir ?
+    dest_file_path= os.path.abspath(os.path.join(file["destination_path"], file["file_name"]))
+    with open(dest_file_path):
+        # byte-to-byte comparison
+        if filecmp.cmp(dest_file_path, file["file_path"], shallow=False):
+            logging.warning(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are equal byte-by-byte. Source file will not be copied')
+            print(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are equal byte-by-byte and will not be overwritten.')
+            return
+        else:
+            print(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are not equal byte-by-byte. Do you want to overwrite file in destination dir?')
+            response = ''
+            while response.lower() not in {"y", "n", "yes", "no"}:
+                response = input("Please enter Yes(y) or No(n): ")
+            if response.lower() in {"yes", "y"}:
+                pass
+            else:
+                print(f'{dest_file_path} will not be overwritten')
+                return
+
+
     try:
         shutil.copy(
             file['file_path'],
@@ -161,7 +183,7 @@ def disk_space_check(files):
                 print(m)
                 logging.warning(m)
 
-        # make "new_list" from files, which destination disk has enough space
+        # make "new_list" with files, which destination disk has enough space
         new_list = []
         for device in devices:
             if device["enough_space"]:
@@ -200,7 +222,7 @@ def file_check(file):
         return False
 
     def _destination_check(file):
-        # destination_path  exist/create
+        # create destination_path if not exists
         try:
             os.makedirs(file["destination_path"], exist_ok=True)
             # destination_path write access check
@@ -219,7 +241,7 @@ def file_check(file):
 
 
 @click.command()
-@click.option('--xml_path', prompt='enter path to config file', default='config.xml in project dir')
+@click.option('--xml_path', prompt='enter path to config file', default='config.xml')
 def main(xml_path):
     tree = get_tree(xml_path)
     files = get_files(tree)
