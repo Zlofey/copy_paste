@@ -62,7 +62,7 @@ def get_tree(xml_path):
 
 def get_files(tree):
     """
-    get file info from xml element tree
+    get file info from xml element tree, removing duplicates
     """
     files = []
     if tree.findall('file'):
@@ -77,6 +77,9 @@ def get_files(tree):
     else:
         print('files to copy not found in the config file')
         exit()
+
+    #removing duplicates
+    files = [i for n, i in enumerate(files) if i not in files[n + 1:]]
     return files
 
 
