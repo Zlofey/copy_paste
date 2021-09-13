@@ -13,6 +13,7 @@ import logging
 import click
 import psutil as psutil
 import filecmp
+from tqdm import tqdm
 
 
 LOG_FORMAT = "\n%(asctime)s %(levelname)s %(message)s"
@@ -84,11 +85,9 @@ def copy(file):
     """
     copy file
     """
-
-
     # does file already exist in destination_path dir ?
     dest_file_path= os.path.abspath(os.path.join(file["destination_path"], file["file_name"]))
-    with open(dest_file_path):
+    if  os.path.exists(dest_file_path):
         # byte-to-byte comparison
         if filecmp.cmp(dest_file_path, file["file_path"], shallow=False):
             logging.warning(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are equal byte-by-byte. Source file will not be copied')
@@ -187,13 +186,14 @@ def disk_space_check(files):
         new_list = []
         for device in devices:
             if device["enough_space"]:
-                for file in device["files"]:
-                    new_list.append({
-                        "source_path": file["source_path"],
-                        "destination_path": file["destination_path"],
-                        "file_name": file["file_name"],
-                        "file_path": file["file_path"],
-                    })
+                new_list += device["files"]
+                # for file in device["files"]:
+                #     new_list.append({
+                #         "source_path": file["source_path"],
+                #         "destination_path": file["destination_path"],
+                #         "file_name": file["file_name"],
+                #         "file_path": file["file_path"],
+                #     })
         return new_list
 
     else:
