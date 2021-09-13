@@ -13,7 +13,6 @@ import logging
 import click
 import psutil as psutil
 import filecmp
-from tqdm import tqdm
 
 
 LOG_FORMAT = "\n%(asctime)s %(levelname)s %(message)s"
@@ -89,12 +88,14 @@ def copy(file):
     dest_file_path= os.path.abspath(os.path.join(file["destination_path"], file["file_name"]))
     if  os.path.exists(dest_file_path):
         # byte-to-byte comparison
+        m_exists = f'{file["file_path"]} - file with this name already exists in {file["destination_path"]}.'
         if filecmp.cmp(dest_file_path, file["file_path"], shallow=False):
-            logging.warning(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are equal byte-by-byte. Source file will not be copied')
-            print(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are equal byte-by-byte and will not be overwritten.')
+            m=f'{m_exists} Files are equal byte-by-byte and will not be overwritten.'
+            logging.warning(m)
+            print(m)
             return
         else:
-            print(f'{file["file_path"]} - file with this name already exists in {file["source_path"]}. Files are not equal byte-by-byte. Do you want to overwrite file in destination dir?')
+            print(f'{m_exists} Files are not equal byte-by-byte. Do you want to overwrite file in destination dir?')
             response = ''
             while response.lower() not in {"y", "n", "yes", "no"}:
                 response = input("Please enter Yes(y) or No(n): ")
@@ -120,7 +121,7 @@ def disk_space_check(files):
     calculate required disk space.
     if disk is out of space, remove files that need to be copied to this disk from "files".
     """
-
+    return_list = []
     def _checking(files):
         files_to_check = []  # add "files" with disk usage information
         for file in files:
@@ -152,6 +153,8 @@ def disk_space_check(files):
         return devices
 
     devices = _checking(files)
+    # if one or more devices out of space
+
     if False in [d["enough_space"] for d in devices]:
         # make list of non-copied files
         try:
@@ -182,23 +185,15 @@ def disk_space_check(files):
                 print(m)
                 logging.warning(m)
 
-        # make "new_list" with files, which destination disk has enough space
-        new_list = []
+        # fill "return_list" with files, which destination disk has enough space
         for device in devices:
             if device["enough_space"]:
-                new_list += device["files"]
-                # for file in device["files"]:
-                #     new_list.append({
-                #         "source_path": file["source_path"],
-                #         "destination_path": file["destination_path"],
-                #         "file_name": file["file_name"],
-                #         "file_path": file["file_path"],
-                #     })
-        return new_list
+                return_list += device["files"]
 
     else:
-        return files
-
+        for device in devices:
+            return_list += device["files"]
+    return return_list
 
 def file_check(file):
     """
@@ -247,8 +242,13 @@ def main(xml_path):
     files = get_files(tree)
     files = [f for f in files if file_check(f)]
     files = disk_space_check(files)
-    for f in files:
+
+    files_size = sum([f["file_size"] for f in files])
+    print(f'Copying {len(files)} files, total size={files_size} B:')
+    for num,f in enumerate(files, start=1):
+        print(f'{num} {f["file_name"]} size={f["file_size"]} B')
         copy(f)
+    print("\n*****Done!*****")
 
 
 if __name__ == "__main__":
