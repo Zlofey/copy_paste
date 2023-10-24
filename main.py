@@ -16,6 +16,7 @@ import filecmp
 
 
 def main():
+    print("job is done")
     print("\n*****Done!!!*****")
 
 
